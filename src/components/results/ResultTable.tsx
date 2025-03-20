@@ -1,6 +1,6 @@
 import Table from '@mui/joy/Table';
 import { resultType } from '../../types/results';
-import { GetGradeFromMark, GetStudentRank } from '../../utils/UtilityFunctions';
+import { getClassNameByValue, GetGradeFromMark, GetStudentRank } from '../../utils/UtilityFunctions';
 import { useEffect, useState } from 'react';
 import { StudentDetailsType } from '../../types/student';
 
@@ -11,8 +11,21 @@ interface ResultTableProps {
 }
 
 function ResultTable({ results }: ResultTableProps) {
-    const [studentClassRank, setStudentClassRank] = useState<string | number>("");
+    const [studentClassRank, setStudentClassRank] = useState<string | number>("N/A");
+    useEffect(() => {
 
+        const fetchStudentRank = async () => {
+            const rank = await GetStudentRank(results[0].id, results[0].class!)
+            console.log(rank)
+            if (rank) {
+                setStudentClassRank(rank)
+
+            } else {
+                setStudentClassRank("N/A")
+            }
+        }
+        fetchStudentRank()
+    }, [results])
     if (results.length === 0) {
         return <p>No results available</p>;
     }
@@ -31,27 +44,22 @@ function ResultTable({ results }: ResultTableProps) {
     }, 0);
 
     const percentage = totalPossibleMarks > 0 ? ((totalMarksObtained / totalPossibleMarks) * 100).toFixed(1) : "0.00";
-
-
-    useEffect(() => {
-        const fetchStudentRank = async () => {
-            const rank = await GetStudentRank(results[0].id, results[0].class!)
-            console.log(rank)
-            if (rank) {
-                setStudentClassRank(rank)
-
-            } else {
-                setStudentClassRank("N/A")
-            }
-        }
-        fetchStudentRank()
-    }, [])
-
     return (
         <Table aria-label="result table" borderAxis="both">
             <thead>
                 <tr>
                     <th colSpan={5} style={{ textAlign: "center" }}><strong>Annual Exam (Term-4)</strong></th>
+                </tr>
+                <tr>
+                    <th colSpan={3}>NAME: {results[0].student_name}</th>
+                    <th colSpan={2}>CLASS: {getClassNameByValue(results[0].class!)}</th>
+                </tr>
+                <tr>
+                    <th colSpan={3}>FATHER NAME: {results[0].father_name}</th>
+                    <th colSpan={2}>DOB : {results[0].dob}</th>
+                </tr>
+                <tr>
+                    <th colSpan={5}>ADDRESS: {results[0].address}</th>
                 </tr>
                 <tr>
                     <th style={{ width: '40%' }}>Subject</th>

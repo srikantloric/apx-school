@@ -55,3 +55,68 @@ export const GetStudentRank = async (studentId: string, studentClass: number): P
     return null;
   }
 };
+
+
+export function getOrdinal(number: number): string {
+  if (typeof number !== 'number' || isNaN(number) || number <= 0) {
+    return 'Invalid input';
+  }
+
+  const suffix = (n: number): string => {
+    const lastDigit = n % 10;
+    const lastTwoDigits = n % 100;
+    
+    if (lastTwoDigits >= 11 && lastTwoDigits <= 13) {
+      return 'th';
+    }
+    
+    switch (lastDigit) {
+      case 1:
+        return 'st';
+      case 2:
+        return 'nd';
+      case 3:
+        return 'rd';
+      default:
+        return 'th';
+    }
+  };
+
+  return number + suffix(number);
+}
+
+
+export function getClassNameByValue(classNumber: number) {
+  switch (classNumber) {
+    case 1:
+      return "Nursery";
+    case 2:
+      return "LKG";
+    case 3:
+      return "UKG";
+    case 4:
+      return "STD-1";
+    case 5:
+      return "STD-2";
+    case 6:
+      return "STD-3";
+    case 7:
+      return "STD-4";
+    case 8:
+      return "STD-5";
+    case 9:
+      return "STD-6";
+    case 10:
+      return "STD-7";
+    case 11:
+      return "STD-8";
+    case 12:
+      return "STD-9";
+    case 13:
+      return "STD-10";
+    case 14:
+      return "Pre-Nursery";
+    default:
+      break;
+  }
+}
