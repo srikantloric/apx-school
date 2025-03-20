@@ -1,14 +1,17 @@
 import Table from '@mui/joy/Table';
 import { resultType } from '../../types/results';
 import { GetGradeFromMark, GetStudentRank } from '../../utils/UtilityFunctions';
+import { useEffect, useState } from 'react';
+import { StudentDetailsType } from '../../types/student';
 
-
+type MergedResultType = resultType & StudentDetailsType;
 
 interface ResultTableProps {
-    results: resultType[];
+    results: MergedResultType[];
 }
 
 function ResultTable({ results }: ResultTableProps) {
+    const [studentClassRank, setStudentClassRank] = useState<string | number>("");
 
     if (results.length === 0) {
         return <p>No results available</p>;
@@ -28,6 +31,21 @@ function ResultTable({ results }: ResultTableProps) {
     }, 0);
 
     const percentage = totalPossibleMarks > 0 ? ((totalMarksObtained / totalPossibleMarks) * 100).toFixed(1) : "0.00";
+
+
+    useEffect(() => {
+        const fetchStudentRank = async () => {
+            const rank = await GetStudentRank(results[0].id, results[0].class!)
+            console.log(rank)
+            if (rank) {
+                setStudentClassRank(rank)
+
+            } else {
+                setStudentClassRank("N/A")
+            }
+        }
+        fetchStudentRank()
+    }, [])
 
     return (
         <Table aria-label="result table" borderAxis="both">
@@ -59,6 +77,10 @@ function ResultTable({ results }: ResultTableProps) {
                 <tr>
                     <td><strong>Percentage (%)</strong></td>
                     <td colSpan={4}><strong>{percentage}%</strong></td>
+                </tr>
+                <tr>
+                    <td><strong>Class Rank</strong></td>
+                    <td colSpan={4}><strong>{studentClassRank}</strong></td>
                 </tr>
 
             </tbody>

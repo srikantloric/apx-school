@@ -33,10 +33,10 @@ type rankDoctype = {
 };
 
 
-export const GetStudentRank = async (studentId: string, studentClass: string): Promise<string | number | null> => {
+export const GetStudentRank = async (studentId: string, studentClass: number): Promise<string | number | null> => {
 
   try {
-    const rankRef = doc(collection(db, "RESULTS"), studentClass);
+    const rankRef = doc(collection(db, "RESULTS"), ""+studentClass);
     const rankSnap = await getDoc(rankRef);
 
     if (!rankSnap.exists()) {

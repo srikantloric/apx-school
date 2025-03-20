@@ -5,7 +5,7 @@ import { db } from "../Firebase";
 import { resultType } from "../types/results";
 import ResultTable from "../components/results/ResultTable";
 import { StudentDetailsType } from "../types/student";
-type MergedResultType = resultType & { studentInfo: StudentDetailsType };
+type MergedResultType = resultType & StudentDetailsType;
 
 const ResultPage = () => {
   const [studentId, setStudentId] = useState<string>("");
