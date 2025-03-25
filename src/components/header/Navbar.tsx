@@ -11,19 +11,19 @@ const NavItems: NavItem[][] = [
     { name: "Rules", link: "/rules" },
     { name: "School Bell", link: "/schoolbell" },
   ],
-  [{ name: "Disclosure", link: "/disclosure" }],
-  [{ name: "School Information", link: "#" }],
+  // [{ name: "Disclosure", link: "/disclosure" }],
+  // [{ name: "School Information", link: "#" }],
   [
     { name: "Photo Gallery", link: "/photogallery" },
     { name: "Video Gallery", link: "/videogallery" },
   ],
   [{ name: "Result", link: "/result" }],
-  [
-    { name: "Student/Parent Login", link: "/parentlogin" },
-    { name: "TC", link: "/applytc" },
-  ],
-  [{ name: "Staff List", link: "/stafflist" }],
-  [{ name: "My School", link: "/myschool" }],
+  // [
+  //   { name: "Student/Parent Login", link: "/parentlogin" },
+  //   { name: "TC", link: "/applytc" },
+  // ],
+  // [{ name: "Staff List", link: "/stafflist" }],
+  // [{ name: "My School", link: "/myschool" }],
   [{ name: "Contact Us", link: "/contactus" }],
 ];
 

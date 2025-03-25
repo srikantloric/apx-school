@@ -50,8 +50,9 @@ const ResultPage = () => {
     <>
       <div className="w-full flex justify-center items-center">
         <div className="px-5 py-10 flex flex-col items-center">
-          <p className="text-xl font-semibold py-5 px-1">View Result</p>
-          <div className="flex flex-row gap-4">
+          <p className="text-3xl font-semibold py-5 px-1 text-red-700">Check Your Result</p>
+          <p>Please enter student id for result check</p>
+          <div className="flex flex-row gap-4 mt-3">
             <TextField
               id="filled-multiline-flexible"
               label="Student Id"
@@ -74,8 +75,8 @@ const ResultPage = () => {
             : null}
           <br />
           {
-            studentResult &&
-            <ResultTable results={studentResult} />
+            studentResult && studentResult.length > 0 ?
+              <ResultTable results={studentResult} /> : null
           }
         </div>
       </div>
