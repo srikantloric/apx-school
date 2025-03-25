@@ -33,7 +33,7 @@ const CarouselBlock = () => {
   }, []);
 
   return (
-    <div className="relative w-full flex justify-center">
+    <div className="relative w-full overflow-hidden">
       <div>
         <div
           className="flex transition-transform duration-500 ease-in-out"
